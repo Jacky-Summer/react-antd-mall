@@ -9,11 +9,11 @@ const menuList = [
         "children": [
             {
                 "title": "商品管理",
-                "key": "/product/list",
+                "key": "/product/index",
             },
             {
                 "title": "品类管理",
-                "key": "/category/list",
+                "key": "/product-category/index",
             }
         ]
     },

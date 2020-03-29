@@ -41,32 +41,34 @@ class Home extends Component {
     return (
       <div className="container">
         <PageTitle />
-        <Row className="content home-wrap" justify="space-around">
-            <Col span={6} className="color-box brown" >
-              <Link to='/'>
-                <p className="count">{this.state.userCount}</p>
-                <p className="desc">
-                <UserOutlined /> 用户总数
-                </p>
-              </Link>
-            </Col>
-            <Col span={6} className="color-box green">
-              <Link to='/'>
-                <p className="count">{this.state.productCount}</p>
-                <p className="desc">
-                  <ShopOutlined /> 商品总数
-                </p>
-              </Link>
-            </Col>
-            <Col span={6} className="color-box blue">
-              <Link to='/'>
-                <p className="count">{this.state.orderCount}</p>
-                <p className="desc">
-                  <OrderedListOutlined /> 订单总数
-                </p>
-              </Link>
-            </Col>
-        </Row>
+        <div>
+          <Row className="content home-wrap" justify="space-around" id="home-wrap">
+              <Col span={6} className="color-box brown" >
+                <Link to='/'>
+                  <p className="count">{this.state.userCount}</p>
+                  <p className="desc">
+                  <UserOutlined /> 用户总数
+                  </p>
+                </Link>
+              </Col>
+              <Col span={6} className="color-box green">
+                <Link to='/'>
+                  <p className="count">{this.state.productCount}</p>
+                  <p className="desc">
+                    <ShopOutlined /> 商品总数
+                  </p>
+                </Link>
+              </Col>
+              <Col span={6} className="color-box blue">
+                <Link to='/'>
+                  <p className="count">{this.state.orderCount}</p>
+                  <p className="desc">
+                    <OrderedListOutlined /> 订单总数
+                  </p>
+                </Link>
+              </Col>
+          </Row>
+        </div>
       </div>
     )
   }
