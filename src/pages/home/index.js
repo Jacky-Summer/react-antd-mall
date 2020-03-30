@@ -3,7 +3,6 @@ import PageTitle from '@components/page-title'
 import { Row, Col, Statistic } from 'antd'
 import { Link } from 'react-router-dom'
 import Service from '@service/statistic-service.js'
-import Utils from '@src/utils'
 import {
   UserOutlined,
   ShopOutlined,
@@ -12,7 +11,6 @@ import {
 import './index.less'
 
 const _statistic = new Service()
-const _util = new Utils()
 
 class Home extends Component {
 
@@ -32,8 +30,6 @@ class Home extends Component {
   loadCount = () => {
     _statistic.getHomeCount().then(res => {
       this.setState(res)
-    }, errMsg => {
-      _util.errorTips(errMsg)
     })
   }
 
@@ -41,34 +37,32 @@ class Home extends Component {
     return (
       <div className="container">
         <PageTitle />
-        <div>
-          <Row className="content home-wrap" justify="space-around" id="home-wrap">
-              <Col span={6} className="color-box brown" >
-                <Link to='/'>
-                  <p className="count">{this.state.userCount}</p>
-                  <p className="desc">
-                  <UserOutlined /> 用户总数
-                  </p>
-                </Link>
-              </Col>
-              <Col span={6} className="color-box green">
-                <Link to='/'>
-                  <p className="count">{this.state.productCount}</p>
-                  <p className="desc">
-                    <ShopOutlined /> 商品总数
-                  </p>
-                </Link>
-              </Col>
-              <Col span={6} className="color-box blue">
-                <Link to='/'>
-                  <p className="count">{this.state.orderCount}</p>
-                  <p className="desc">
-                    <OrderedListOutlined /> 订单总数
-                  </p>
-                </Link>
-              </Col>
-          </Row>
-        </div>
+        <Row className="content home-wrap" justify="space-around" id="home-wrap">
+            <Col span={6} className="color-box brown" >
+              <Link to='/'>
+                <p className="count">{this.state.userCount}</p>
+                <p className="desc">
+                <UserOutlined /> 用户总数
+                </p>
+              </Link>
+            </Col>
+            <Col span={6} className="color-box green">
+              <Link to='/'>
+                <p className="count">{this.state.productCount}</p>
+                <p className="desc">
+                  <ShopOutlined /> 商品总数
+                </p>
+              </Link>
+            </Col>
+            <Col span={6} className="color-box blue">
+              <Link to='/'>
+                <p className="count">{this.state.orderCount}</p>
+                <p className="desc">
+                  <OrderedListOutlined /> 订单总数
+                </p>
+              </Link>
+            </Col>
+        </Row>
       </div>
     )
   }

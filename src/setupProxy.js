@@ -5,6 +5,7 @@ module.exports = function (app) {
     createProxyMiddleware('/manage', {
         target: 'http://adminv2.happymmall.com',
         changeOrigin: true,
+        secure: false,
         pathRewrite: {
             '^/manage': '/manage'
         }

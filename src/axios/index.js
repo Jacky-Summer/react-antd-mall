@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './http'
 import qs from 'qs'
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -21,7 +21,7 @@ class Axios {
                 } else if(res.status === 10) { // 没有登录状态，强制登录
                     this.doLogin()
                 } else {
-                    reject(res.msg || res.data)
+                    reject(res)
                 }
             }).catch(err => {
                 reject(err)

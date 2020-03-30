@@ -1,7 +1,7 @@
 import { message, Modal } from 'antd'
 class Utils {
-    errorTips (errMsg) {
-        message.error(errMsg);
+    warningTips (errMsg) {
+        message.warning(errMsg);
     } 
 
     errorAlert (errMsg) {
