@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PageTitle from '@components/page-title'
-import { Row, Col, Statistic } from 'antd'
+import { Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import Service from '@service/statistic-service.js'
 import {

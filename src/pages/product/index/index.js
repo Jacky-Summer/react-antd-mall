@@ -1,22 +1,43 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import PageTitle from '@components/page-title'
-import { Row, Col, Select, Input, Button, Table } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import ListSearch from './index-list-search'
+import { Row, Button, Modal } from 'antd'
 import Product from '@service/product-service.js'
+import TableList from '@components/table-list'
 import Utils from '@src/utils'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import './index.less'
-const { Column } = Table;
-const { Option } = Select;
+
 const _product = new Product()
 const _util = new Utils()
 
 class ProductList extends Component {
 
+    constructor (props) {
+        super(props)
+        this.state = {
+            pageNum: 1,
+            total: 0,
+            listType: 'list'
+        }
+    }
+
     loadProductList () {
-        _product.getProductList().then(res => {
-            console.log(res)
-        }, errMsg =>{
-            _util.errorTips(errMsg)
+        let listParam = {}
+        listParam.pageNum = this.state.pageNum
+        listParam.listType = this.state.listType
+        if (this.state.listType === 'search') {
+            listParam.searchType = this.state.searchType
+            listParam.searchKeyword = this.state.searchKeyword
+        }   
+        _product.getProductList(listParam).then(res => {
+            this.setState({
+                list: res.list,
+                current: res.pageNum,
+                pageSize: res.size,
+                total: res.total
+            })
         })
     }
 
@@ -24,51 +45,124 @@ class ProductList extends Component {
         this.loadProductList()
     }
 
+    
+    onSetProductStatus (productId, status) {
+        let newStatus = status === 1 ? 2 : 1
+        Modal.confirm({
+            title: '确认提示',
+            icon: <ExclamationCircleOutlined />,
+            content: status === 1 ? '你确认要下架该商品吗' : '你确认要上架该商品吗',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: () => {
+                _product.setProductStatus({
+                    productId,
+                    status: newStatus
+                }).then(res => {
+                    _util.successTips(res)
+                    this.loadProductList()
+                })
+            }
+        }); 
+    }
+
+    
+    handleChangeStatus () {
+
+    }
+
+    onSearch (searchType, searchKeyword) {
+        let listType = searchKeyword === '' ? 'list': 'search'
+        this.setState({
+            listType,
+            searchType,
+            searchKeyword,
+            pageNum: 1
+        }, () => {
+            this.loadProductList()
+        })
+    }
+    
     render() {
-        const dataSource = [
-            
-        ]
 
         const columns = [
             {
                 title: '商品ID',
-                dataIndex: 'name',
-                key: 'name',
+                dataIndex: 'id',
+                key: 'id',
+            },
+            {
+                title: '信息',
+                render: (text, record) => (
+                    <span>
+                        <p>{record.name}</p>
+                        <p>{record.subtitle}</p>     
+                    </span> 
+                 ) 
+            },
+            {
+                title: '价格',
+                dataIndex: 'price',
+                key: 'price',
+            },
+            {
+                title: '状态',
+                dataIndex: 'status',
+                key: 'status',
+                render: (status, record) => {
+                    return (
+                        <>
+                            <p className="product-status">{ status == 1 ? '在售' : '已下架' }</p>
+                            <Button 
+                                size="small" 
+                                type="primary"
+                                onClick={() => this.onSetProductStatus(record.id, record.status)}
+                            >
+                                { status === 1 ? '下架' : '上架' }
+                            </Button>
+                        </>
+                    ) 
+                }
+            },
+            {
+                title: '操作',
+                dataIndex: '',
+                key: 'x',
+                render: (text, record) => (
+                    <>
+                        <Link to={`/product/detail/${record.id}`} className="view">查看</Link>
+                        <Link to={`/product/save/${record.id}`}>编辑</Link>
+                    </>
+                ),
             },
         ]
+
+        const paginationProps = {
+            current: this.state.current,
+            size: this.state.size,
+            total: this.state.total,
+            onChange: (page) => {
+                this.state.pageNum = page
+                this.loadProductList()
+            },
+            showTotal: () => {
+                return `共有 ${this.state.total} 条数据`
+            },
+            showQuickJumper: true
+        }
 
         return (
             <div className="container">
                 <PageTitle title="商品列表"/>
                 <div className="content">
+                    <ListSearch onSearch={(searchType, searchKeyword) => { this.onSearch(searchType, searchKeyword)}}/> 
                     <Row>
-                        <Col span="14">
-                            <Select defaultValue="productId" className="select-options">
-                                <Option value="productId">按商品ID查询</Option>
-                                <Option value="productName">按商品名称查询</Option>
-                            </Select> 
-                            <Input placeholder="关键词" className="input-keyword"/>
-                            <Button type="primary" className="btn-add">查询</Button>
-                        </Col>
-                        <Col span="10" className="add-container">
-                            <Button type="primary"><PlusOutlined />添加商品</Button>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Table dataSource={[]} className="table-list" bordered>
-                            <Column title="Age" dataIndex="age" key="age" />
-                            <Column title="Address" dataIndex="address" key="address" />
-                            <Column
-                                title="Action"
-                                key="action"
-                                render={(text, record) => (
-                                    <span>
-                                    <a style={{ marginRight: 16 }}>Invite {record.lastName}</a>
-                                    <a>Delete</a>
-                                    </span>
-                                )}
-                            />
-                        </Table>
+                        <TableList 
+                            list={this.state.list} 
+                            columns={columns}
+                            rowKey={ record => record.id } 
+                            paginationProps={paginationProps}
+                        />
                     </Row>
                 </div>
             </div>

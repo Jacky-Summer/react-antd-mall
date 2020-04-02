@@ -1,5 +1,8 @@
 import axios from './http'
 import qs from 'qs'
+import Utils from '@src/utils'
+
+const _util = new Utils()
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
@@ -18,7 +21,7 @@ class Axios {
                 res = res.data
                 if (res.status === 0) {
                     resolve(res.data)
-                } else if(res.status === 10) { // 没有登录状态，强制登录
+                } else if (res.status === 10) { // 没有登录状态，强制登录
                     this.doLogin()
                 } else {
                     reject(res)
@@ -30,7 +33,11 @@ class Axios {
     }
 
     doLogin () {
-        window.location.href = '/login'
+        _util.warningTips('请先登录！')
+        setTimeout(() => {
+            window.location.href = '/login'
+        }, 2000)
+        
     }
 }
 

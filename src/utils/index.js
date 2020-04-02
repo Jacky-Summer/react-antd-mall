@@ -1,9 +1,17 @@
 import { message, Modal } from 'antd'
 class Utils {
+
+    // 成功提示信息
+    successTips (msg) {
+        message.success(msg);
+    }
+
+    // 警告提示信息
     warningTips (errMsg) {
         message.warning(errMsg);
     } 
 
+    // 错误弹框
     errorAlert (errMsg) {
         Modal.error({
             title: '发生错误！',
@@ -22,6 +30,7 @@ class Utils {
             this.errorAlert('该类型不能用于本地存储')
         }
     }
+
 }
 
 export default Utils
