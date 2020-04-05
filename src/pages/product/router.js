@@ -11,7 +11,7 @@ const ProductRouter = () => {
             <Route path='/product/index' component={Product}/>
             <Route path='/product-category/index' component={Category}/>
             <Route path='/product/detail/:id' component={ProductDetail}/>
-            <Route path='/product/save/:id' component={ProductSave}/>
+            <Route path='/product/save/:id?' component={ProductSave}/>
             <Redirect exact from='/product' to='/product/index'/>
             <Redirect exact from='/product-category' to='/product-category/index'/>
         </Switch>

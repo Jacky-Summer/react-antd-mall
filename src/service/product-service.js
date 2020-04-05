@@ -14,7 +14,6 @@ class Product {
         } else {
             url = '/manage/product/list.do' 
         }
-        console.log(listParam)
         return _axios.request({
             type: 'post',
             url: url,
@@ -30,6 +29,38 @@ class Product {
             data: productInfo
         })
     }
+
+    // 根据父品类id获取品类列表
+    getCategoryList (parentCategoryId) {
+        return _axios.request({
+            type: 'post',
+            url: '/manage/category/get_category.do',
+            data: {
+                categoryId: parentCategoryId
+            }
+        })
+    }
+
+    // 保存商品
+    saveProduct (product) {
+        return _axios.request({
+            type: 'post',
+            url: '/manage/product/save.do',
+            data: product
+        })
+    }
+
+    // 获取商品详情 
+    getProduct (productId) {
+        return _axios.request({
+            type: 'post',
+            url: '/manage/product/detail.do',
+            data: {
+                productId
+            }
+        })
+    }
+    
 }
 
 export default Product

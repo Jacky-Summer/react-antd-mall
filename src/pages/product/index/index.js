@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import PageTitle from '@components/page-title'
 import ListSearch from './index-list-search'
-import { Row, Button, Modal } from 'antd'
+import { Row, Col, Button, Modal } from 'antd'
 import Product from '@service/product-service.js'
 import TableList from '@components/table-list'
 import Utils from '@src/utils'
-import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import './index.less'
 
 const _product = new Product()
 const _util = new Utils()
 
 class ProductList extends Component {
+    _isMounted = false
 
     constructor (props) {
         super(props)
@@ -23,7 +24,7 @@ class ProductList extends Component {
         }
     }
 
-    loadProductList () {
+    loadProductList () {   
         let listParam = {}
         listParam.pageNum = this.state.pageNum
         listParam.listType = this.state.listType
@@ -31,20 +32,28 @@ class ProductList extends Component {
             listParam.searchType = this.state.searchType
             listParam.searchKeyword = this.state.searchKeyword
         }   
-        _product.getProductList(listParam).then(res => {
-            this.setState({
-                list: res.list,
-                current: res.pageNum,
-                pageSize: res.size,
-                total: res.total
+        if (this._isMounted) {
+            _product.getProductList(listParam).then(res => {
+                this.setState({
+                    list: res.list,
+                    current: res.pageNum,
+                    pageSize: res.size,
+                    total: res.total
+                }, () => {
+                    this._isMounted = false
+                })
             })
-        })
+        } 
     }
 
     componentDidMount () {
+        this._isMounted = true
         this.loadProductList()
     }
 
+    componentWillUnmount () {
+        this._isMounted = false
+    }
     
     onSetProductStatus (productId, status) {
         let newStatus = status === 1 ? 2 : 1
@@ -155,7 +164,13 @@ class ProductList extends Component {
             <div className="container">
                 <PageTitle title="商品列表"/>
                 <div className="content">
-                    <ListSearch onSearch={(searchType, searchKeyword) => { this.onSearch(searchType, searchKeyword)}}/> 
+                    <ListSearch onSearch={(searchType, searchKeyword) => { this.onSearch(searchType, searchKeyword)}}>
+                        <Col span="10" className="add-container">
+                            <Link to='/product/save'>
+                                <Button type="primary"><PlusOutlined />添加商品</Button>
+                            </Link> 
+                        </Col>
+                    </ListSearch> 
                     <Row>
                         <TableList 
                             list={this.state.list} 

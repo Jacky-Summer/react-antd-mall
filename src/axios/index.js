@@ -9,14 +9,19 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 class Axios {
     request (params) {
         return new Promise((resolve, reject) => {
-            let formData = null;
+            let formData = null,
+                headers = {}
             if (params.data) {
                 formData = qs.stringify(params.data) // 转为formData对象
+            }
+            if (params.headers) {
+                headers = params.headers
             }
             axios({
                 method: params.type || 'get',
                 url: params.url || '',
-                data: formData
+                data: formData,
+                headers: headers
             }).then(res => {
                 res = res.data
                 if (res.status === 0) {

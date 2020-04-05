@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, Select, Input } from 'antd'
 import Utils from '@src/utils'
-import { PlusOutlined } from '@ant-design/icons'
 import './index-list-search.less'
 
 const { Option } = Select;
@@ -63,17 +62,9 @@ class ListSearch extends Component {
                         onChange={(e) => this.handleInputChange(e)}
                         onKeyUp={(e) => this.onSearchKeywordKeyUp(e)}
                     />
-                    <Button 
-                        type="primary" 
-                        className="btn-add"
-                        onClick={() => this.onSearch()}
-                    >
-                        查询
-                    </Button>
+                    <Button type="primary" onClick={() => this.onSearch()}>查询</Button>
                 </Col>
-                <Col span="10" className="add-container">
-                    <Button type="primary"><PlusOutlined />添加商品</Button>
-                </Col>
+                {this.props.children}
             </Row>
         );
     }

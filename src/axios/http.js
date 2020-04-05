@@ -8,7 +8,7 @@ const _util = new Utils()
 
 const Http = axios.create({
     // baseURL: process.env.BASE_URL, // 设置请求的base url
-    timeout: 12000, // 设置超时时长
+    timeout: 15000, // 设置超时时长
 })
 
 // 设置post请求头
