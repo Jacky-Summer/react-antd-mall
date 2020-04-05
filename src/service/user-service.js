@@ -11,6 +11,17 @@ class User {
             data: loginInfo
         })
     }
+
+    // 获取用户列表
+    getUserList (pageNum) {
+        return _axios.request({
+            type: 'POST',
+            url: '/manage/user/list.do',
+            data: {
+                pageNum
+            }
+        })
+    } 
 }
 
 export default User
