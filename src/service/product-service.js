@@ -60,6 +60,35 @@ class Product {
             }
         })
     }
+
+    // 获取品类列表
+    getCategoryList (categoryId) {
+        return _axios.request({
+            type: 'post',
+            url: '/manage/category/get_category.do',
+            data: {
+                categoryId
+            }
+        })
+    }
+
+    // 修改品类名称
+    updateCategoryName (category) {
+        return _axios.request({
+            type: 'post',
+            url: '/manage/category/set_category_name.do',
+            data: category
+        })
+    }
+
+    // 新增品类
+    saveCategory (category) {
+        return _axios.request({
+            type: 'post',
+            url: '/manage/category/add_category.do',
+            data: category
+        })
+    }
     
 }
 
