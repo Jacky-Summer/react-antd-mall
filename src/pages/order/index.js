@@ -84,7 +84,7 @@ class OrderList extends Component {
                 dataIndex: '',
                 key: 'x',
                 render: (text, record) => (
-                    <Link to={`/order/index/${record.orderNo}`}>详情</Link>
+                    <Link to={`/order/detail/${record.orderNo}`}>详情</Link>
                 ),
             },
         ]
@@ -105,7 +105,7 @@ class OrderList extends Component {
 
         return (
             <div className="container">
-                <PageTitle title="商品列表"/>
+                <PageTitle title="订单列表"/>
                 <div className="content">
                     <ListSearch onSearch={(searchType, searchKeyword) => { this.onSearch(searchType, searchKeyword)}}/>
                     <Row>

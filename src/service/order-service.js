@@ -21,6 +21,17 @@ class Order {
             data: data
         });
     }
+
+    // 加载订单详情
+    getOrderDetail (orderNo) {
+        return _axios.request({
+            type: 'post',
+            url: '/manage/order/detail.do',
+            data: {
+                orderNo
+            }
+        })
+    }
 }
 
 export default Order
