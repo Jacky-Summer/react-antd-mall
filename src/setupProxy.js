@@ -9,6 +9,11 @@ module.exports = function (app) {
         pathRewrite: {
             '^/manage': '/manage'
         }
+    }),
+    createProxyMiddleware('/user/logout.do', {
+      target: 'http://adminv2.happymmall.com',
+      changeOrigin: true,
+      secure: false
     })
   )
 }

@@ -22,6 +22,14 @@ class User {
             }
         })
     } 
+
+    // 退出登录
+    logout () {
+        return _axios.request({
+            type: 'post',
+            url: '/user/logout.do'
+        });
+    }
 }
 
 export default User

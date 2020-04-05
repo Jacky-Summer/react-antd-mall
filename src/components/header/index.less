@@ -1,12 +1,36 @@
+@navHeight: 60px;
 .header {
+    position: relative;
     background: #fff;
-    height: 60px;
+    height: @navHeight;
     .header-top {
         text-align: right;
-        line-height: 60px;
+        line-height: @navHeight;
         margin-right: 10px;
+        cursor: pointer;
         span {
             margin-right: 20px;
         }
+    }
+    .logout {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        height: 42px;
+        padding: 0 36px;
+        line-height: 42px;
+        display: none;
+        background-color: #fff;
+        cursor: pointer;
+        z-index: 99;
+        &:hover {
+            color: #1890ff;
+        }
+        .logout-icon {
+            margin-right: 10px;
+        }
+    }
+    &:hover .logout {
+        display: block;
     }
 }
