@@ -8,6 +8,7 @@ import Login from '@pages/login'
 import Order from '@pages/order'
 import OrderDetail from '@pages/order/detail'
 import User from '@pages/user'
+import ErrorPage from '@pages/error'
 
 class MRouter extends Component {
     render() {
@@ -27,6 +28,7 @@ class MRouter extends Component {
                                     <Route path='/user' component={User}/>
                                     <Redirect exact from="/order" to='/order/index'/>
                                     <Redirect exact from="/" to='/home'/>
+                                    <Route component={ErrorPage}/>
                                 </Switch>
                             </Layout>  
                         }/>

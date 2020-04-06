@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd'
-import { withRouter } from "react-router-dom";
 import User from '@service/user-service.js'
 import Utils from '@src/utils'
+import { withRouter } from 'react-router-dom'
 import './index.less'
 import { LoginOutlined } from '@ant-design/icons';
 const _util = new Utils()
 const _user = new User()
 
 class Header extends Component {
-
+    
     logout = () => {
         _user.logout().then(res => {
             _util.removeStorage('userInfo');

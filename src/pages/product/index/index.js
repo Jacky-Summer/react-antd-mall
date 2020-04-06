@@ -13,7 +13,6 @@ const _product = new Product()
 const _util = new Utils()
 
 class ProductList extends Component {
-    _isMounted = false
 
     constructor (props) {
         super(props)
@@ -32,27 +31,18 @@ class ProductList extends Component {
             listParam.searchType = this.state.searchType
             listParam.searchKeyword = this.state.searchKeyword
         }   
-        if (this._isMounted) {
-            _product.getProductList(listParam).then(res => {
-                this.setState({
-                    list: res.list,
-                    current: res.pageNum,
-                    pageSize: res.size,
-                    total: res.total
-                }, () => {
-                    this._isMounted = false
-                })
+        _product.getProductList(listParam).then(res => {
+            this.setState({
+                list: res.list,
+                current: res.pageNum,
+                pageSize: res.size,
+                total: res.total
             })
-        } 
+        })
     }
 
     componentDidMount () {
-        this._isMounted = true
         this.loadProductList()
-    }
-
-    componentWillUnmount () {
-        this._isMounted = false
     }
     
     onSetProductStatus (productId, status) {
@@ -73,11 +63,6 @@ class ProductList extends Component {
                 })
             }
         }); 
-    }
-
-    
-    handleChangeStatus () {
-
     }
 
     onSearch (searchType, searchKeyword) {

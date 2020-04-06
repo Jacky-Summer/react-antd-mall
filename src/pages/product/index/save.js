@@ -110,8 +110,8 @@ class ProductSave extends Component {
                 this.setState(res)
                 this.formRef.current.setFieldsValue(res);
                 this.formRef.current.setFieldsValue({
-                    firstCategoryId: res.categoryId,
-                    secondCategoryId: res.parentCategoryId
+                    firstCategoryId: String(res.categoryId),
+                    secondCategoryId: String(res.parentCategoryId)
                 });
             })
         }

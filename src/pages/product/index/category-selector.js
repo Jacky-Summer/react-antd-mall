@@ -6,7 +6,7 @@ import './category-selector.less'
 const { Option } = Select
 const _product = new Product()
 class CategorySelector extends Component {
-    _isMounted = false
+
     constructor (props) {
         super(props)
         this.state = {
@@ -18,7 +18,6 @@ class CategorySelector extends Component {
     }
 
     componentDidMount () {
-        this._isMounted = true
         this.loadFirstCategory()
     }
 
@@ -43,10 +42,6 @@ class CategorySelector extends Component {
                 this.loadSecondCategory()
             })
         }
-    }
-
-    componentWillUnmount () {
-        this._isMounted = false
     }
 
     // 选择一级品类
