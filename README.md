@@ -1,10 +1,10 @@
 # react-antd-mall
 
-通过React构建构建电商后台管理系统，利用网上现成的RESTful API来对接
+通过React构建电商后台管理系统，利用网上现成的RESTful API来对接
 
 ## 技术选型
 
-1. 前后端完全分离，分层架构，模块化开发
+1. 分层架构，模块化开发
 2. React v16.13.1，Ant Design4 组件库，React-Router， ES6， Less
 
 ## 完成功能
