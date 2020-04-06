@@ -25,6 +25,9 @@
 <p align="center">
 	<img src="https://github.com/Jacky-Summer/react-antd-mall/blob/master/img/product.jpg" alt=""  width="800"/>
 </p>
+<p align="center">
+	<img src="https://github.com/Jacky-Summer/react-antd-mall/blob/master/img/GIF.gif" alt=""  width="800"/>
+</p>
 
 ## 项目运行
 - username: admin
