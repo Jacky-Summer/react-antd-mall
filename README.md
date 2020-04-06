@@ -14,3 +14,18 @@
 3. 可使用id或关键字对商品进行搜索，可以直接对商品进行上架或下架处理
 4. 添加商品可以选择图片上传，支持富文本编辑
 
+## 业务模块
+
+<p align="center">
+	<img src="https://github.com/Jacky-Summer/react-antd-mall/blob/master/img/structure.jpg" alt=""  width="800"/>
+</p>
+
+## 页面展示
+
+<p align="center">
+	<img src="https://github.com/Jacky-Summer/react-antd-mall/blob/master/img/product.jpg" alt=""  width="800"/>
+</p>
+
+## 项目运行
+- username: admin
+- password: admin
